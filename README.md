@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ChronoMap — Interactive World History Timeline
 
-## Getting Started
+An interactive world map where you slide through 5,000 years of history and watch empires rise and fall.
 
-First, run the development server:
+## Quick Start
+
+### 1. Get a Mapbox Token
+
+1. Create a free account at [mapbox.com](https://account.mapbox.com/)
+2. Copy your **Default public token** from the [tokens page](https://account.mapbox.com/access-tokens/)
+
+### 2. Configure Environment
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+cp .env.example .env.local
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Edit `.env.local` and paste your Mapbox token:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+NEXT_PUBLIC_MAPBOX_TOKEN=pk.eyJ1Ijoi...your_token
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 3. Install & Run
 
-## Learn More
+```bash
+npm install
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+Open [http://localhost:3000](http://localhost:3000).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Architecture
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+├── app/                    # Next.js App Router
+│   ├── layout.tsx          # Root layout (metadata, fonts)
+│   ├── page.tsx            # Main page (composition root)
+│   └── globals.css         # Global styles + Mapbox overrides
+├── components/
+│   ├── MapView.tsx         # Mapbox GL map (dynamic import, no SSR)
+│   ├── TimelineSlider.tsx  # Year slider with playback controls
+│   └── EmpireDetailsPanel.tsx  # Slide-out info panel
+├── lib/
+│   ├── types.ts            # Core TypeScript interfaces
+│   ├── empires.ts          # Static empire data + GeoJSON
+│   └── timeUtils.ts        # Year formatting, filtering, conversion
+└── store/
+    └── useTimelineStore.ts # Zustand global state
+```
 
-## Deploy on Vercel
+### Key Design Decisions
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Zustand over Context**: Selector-based subscriptions prevent re-rendering the entire tree when only `selectedYear` changes.
+- **Dynamic import for MapView**: Mapbox GL requires DOM access. `next/dynamic` with `ssr: false` keeps the app server-renderable.
+- **Imperative map layer management**: Layers are added/removed via Mapbox GL's JS API rather than re-mounting React components — critical for performance at scale.
+- **Separated data layer**: Empire data is a plain array that can be swapped for an API call or database query without touching components.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Tech Stack
+
+| Layer          | Technology      |
+| -------------- | --------------- |
+| Framework      | Next.js 16 (App Router) |
+| Language       | TypeScript      |
+| Styling        | Tailwind CSS 4  |
+| Maps           | Mapbox GL JS    |
+| State          | Zustand         |
+| Data           | Static JSON (MVP) |
+
+## Future Roadmap
+
+- [ ] Animated border expansion/contraction
+- [ ] Religion overlay layer toggle
+- [ ] Silk Road / trade route visualization
+- [ ] Compare two years side-by-side
+- [ ] AI narration mode
+- [ ] Backend API with database for hundreds of empires
+- [ ] User accounts and bookmarking
