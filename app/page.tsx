@@ -107,6 +107,70 @@ function AtmosphereToggle() {
   );
 }
 
+function ProjectionToggle() {
+  const projectionMode = useTimelineStore((s) => s.projectionMode);
+  const setProjectionMode = useTimelineStore((s) => s.setProjectionMode);
+
+  return (
+    <div className="flex rounded-xl overflow-hidden border border-white/10 bg-black/60 backdrop-blur-lg">
+      <button
+        onClick={() => setProjectionMode("globe")}
+        className={`
+          flex items-center gap-2 px-3 py-2 text-sm font-medium transition-colors
+          ${
+            projectionMode === "globe"
+              ? "bg-cyan-500/20 border-cyan-500/40 text-cyan-400"
+              : "text-white/50 hover:text-white/80"
+          }
+        `}
+        aria-label="View as 3D globe"
+      >
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 16 16"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <circle cx="8" cy="8" r="6" />
+          <ellipse cx="8" cy="8" rx="2" ry="6" />
+          <path d="M2 8h12M8 2v12" />
+        </svg>
+        <span>Globe</span>
+      </button>
+      <button
+        onClick={() => setProjectionMode("mercator")}
+        className={`
+          flex items-center gap-2 px-3 py-2 text-sm font-medium transition-colors border-l border-white/10
+          ${
+            projectionMode === "mercator"
+              ? "bg-cyan-500/20 border-cyan-500/40 text-cyan-400"
+              : "text-white/50 hover:text-white/80"
+          }
+        `}
+        aria-label="View as 2D map"
+      >
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 16 16"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M1 4v8M5 2v12M9 5v6M13 3v10M15 4H1M15 8H1M15 12H1" />
+        </svg>
+        <span>Map</span>
+      </button>
+    </div>
+  );
+}
+
 export default function Home() {
   return (
     <main className="relative w-screen h-screen overflow-hidden bg-gray-950">
@@ -114,7 +178,8 @@ export default function Home() {
       <AtmosphereOverlay />
       <YearBadge />
       <DominantPowerOverlay />
-      <div className="absolute top-20 right-4 z-10 flex flex-col gap-2">
+      <div className="absolute top-4 right-[13rem] z-10 flex flex-col gap-2">
+        <ProjectionToggle />
         <FocusModeToggle />
         <AtmosphereToggle />
       </div>

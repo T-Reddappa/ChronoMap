@@ -128,6 +128,7 @@ export default function MapView() {
 
     let disposed = false;
     let unsubscribe: (() => void) | null = null;
+    let unsubscribeProjection: (() => void) | null = null;
 
     const map = new mapboxgl.Map({
       container: mapContainer.current,
@@ -155,7 +156,38 @@ export default function MapView() {
     map.on("load", () => {
       if (disposed) return;
 
+      // ── Projection from store (user can switch Globe / 2D Map) ─
+      map.setProjection(useTimelineStore.getState().projectionMode);
+
+      // ── Subtle terrain (once per load, documentary tone) ───────
+      if (!map.getSource("mapbox-dem")) {
+        map.addSource("mapbox-dem", {
+          type: "raster-dem",
+          url: "mapbox://mapbox.terrain-rgb",
+          tileSize: 512,
+          maxzoom: 14,
+        });
+      }
+      map.setTerrain({
+        source: "mapbox-dem",
+        exaggeration: 1.1,
+      });
+      // Performance: globe + terrain are set once in load; no React state, no duplicate
+      // DEM source (guard above). FadeManager and layer sync are unchanged; playback
+      // remains one rAF in TimelineSlider and one in FadeManager — no extra frame cost.
+
       mapRef.current = map;
+
+      // React to user switching Globe / 2D Map (only when projectionMode changes)
+      let lastProjection: "globe" | "mercator" =
+        useTimelineStore.getState().projectionMode;
+      unsubscribeProjection = useTimelineStore.subscribe((state) => {
+        if (state.projectionMode === lastProjection) return;
+        lastProjection = state.projectionMode;
+        if (mapRef.current && !disposed) {
+          mapRef.current.setProjection(lastProjection);
+        }
+      });
       const fadeManager = new FadeManager(map);
       fadeManagerRef.current = fadeManager;
       const scheduler = new CameraScheduler(map);
@@ -201,10 +233,7 @@ export default function MapView() {
         );
 
         // ── 2. Camera scheduling + engrave ───────────────
-        const setsChanged = !setsEqual(
-          previousVisibleIds.current,
-          visibleIds
-        );
+        const setsChanged = !setsEqual(previousVisibleIds.current, visibleIds);
 
         if (focusMode && setsChanged) {
           if (visibleIds.size === 1) {
@@ -295,6 +324,7 @@ export default function MapView() {
     return () => {
       disposed = true;
       unsubscribe?.();
+      unsubscribeProjection?.();
       engraveManagerRef.current?.dispose();
       engraveManagerRef.current = null;
       schedulerRef.current?.dispose();

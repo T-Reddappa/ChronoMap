@@ -44,10 +44,10 @@ export class CameraScheduler {
       if (now - this.lastMoveTime < COOLDOWN_MS) return;
 
       this.map.fitBounds(bounds, {
-        padding: options.solo ? 80 : 120,
+        padding: options.solo ? 90 : 140, // Slightly more padding for globe + terrain depth
         maxZoom: options.solo ? 5 : 4,
         duration: 1600,
-        pitch: 40,
+        pitch: 35, // Reduced from 40 for globe + terrain; keeps clarity
         easing: easeOutQuad,
       });
       this.lastMoveTime = now;

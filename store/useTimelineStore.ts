@@ -13,6 +13,8 @@ interface TimelineState {
   focusMode: boolean;
   /** Radial vignette overlay for cinematic atmosphere. */
   cinematicAtmosphere: boolean;
+  /** Map view: 3D globe or 2D flat (mercator). */
+  projectionMode: "globe" | "mercator";
 
   setSelectedYear: (year: number) => void;
   setSelectedEmpire: (empire: Empire | null) => void;
@@ -21,6 +23,7 @@ interface TimelineState {
   setPlaybackSpeed: (speed: number) => void;
   toggleFocusMode: () => void;
   toggleCinematicAtmosphere: () => void;
+  setProjectionMode: (mode: "globe" | "mercator") => void;
 }
 
 export const useTimelineStore = create<TimelineState>((set) => ({
@@ -31,6 +34,7 @@ export const useTimelineStore = create<TimelineState>((set) => ({
   playbackSpeed: 50,
   focusMode: false,
   cinematicAtmosphere: true,
+  projectionMode: "globe",
 
   setSelectedYear: (year) => set({ selectedYear: year }),
   setSelectedEmpire: (empire) => set({ selectedEmpire: empire }),
@@ -45,4 +49,5 @@ export const useTimelineStore = create<TimelineState>((set) => ({
   toggleFocusMode: () => set((state) => ({ focusMode: !state.focusMode })),
   toggleCinematicAtmosphere: () =>
     set((state) => ({ cinematicAtmosphere: !state.cinematicAtmosphere })),
+  setProjectionMode: (mode) => set({ projectionMode: mode }),
 }));

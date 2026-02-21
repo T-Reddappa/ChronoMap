@@ -10,7 +10,7 @@ const PHASE2_MS = 2000;
 const PHASE3_MS = 1200;
 
 const OPACITY_PEAK = 0.35;
-const HALO_WIDTH_PEAK = 3;
+const HALO_WIDTH_PEAK = 3.5; // Slightly stronger halo for globe projection
 const HALO_WIDTH_END = 1;
 const HALO_BLUR_START = 1;
 const HALO_BLUR_PEAK = 0.5;
@@ -135,9 +135,10 @@ export class EngraveLabelManager {
       layout: {
         "text-field": ["get", "name"],
         "text-transform": "uppercase",
-        "text-size": 28,
+        "text-size": 29, // ~5% larger baseline for globe legibility
         "text-letter-spacing": 0.08,
         "text-anchor": "center",
+        "text-pitch-alignment": "map", // Keeps label legible on globe/terrain
         "text-allow-overlap": true,
         "text-ignore-placement": true,
       },
