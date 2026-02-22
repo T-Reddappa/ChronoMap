@@ -225,21 +225,16 @@ export class FadeManager {
   private applyOpacity(empireId: string, normalized: number): void {
     const fillId = `fill-${empireId}`;
     const lineId = `line-${empireId}`;
+    const clamped = Math.max(0, Math.min(1, normalized));
+    const fillOpacity = clamped * FILL_OPACITY_TARGET;
+    const lineOpacity = clamped * LINE_OPACITY_TARGET;
 
     try {
       if (this.map.getLayer(fillId)) {
-        this.map.setPaintProperty(
-          fillId,
-          "fill-opacity",
-          normalized * FILL_OPACITY_TARGET
-        );
+        this.map.setPaintProperty(fillId, "fill-opacity", fillOpacity);
       }
       if (this.map.getLayer(lineId)) {
-        this.map.setPaintProperty(
-          lineId,
-          "line-opacity",
-          normalized * LINE_OPACITY_TARGET
-        );
+        this.map.setPaintProperty(lineId, "line-opacity", lineOpacity);
       }
     } catch {
       // Layer may have been removed externally

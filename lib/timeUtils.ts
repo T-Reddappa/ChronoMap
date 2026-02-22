@@ -1,7 +1,7 @@
 import type { Empire } from "./types";
 
-export const MIN_YEAR = -3000;
-export const MAX_YEAR = 2025;
+export const MIN_YEAR = -500;
+export const MAX_YEAR = 1900;
 
 export function formatYear(year: number): string {
   const y = Math.round(year);

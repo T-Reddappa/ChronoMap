@@ -575,6 +575,530 @@ export const empires: Empire[] = [
       { year: 1818, description: "Third Anglo-Maratha War; British paramountcy" },
     ],
   },
+  {
+    id: "byzantine-empire",
+    name: "Byzantine Empire",
+    startYear: 330,
+    endYear: 1453,
+    capital: "Constantinople",
+    color: "#8E44AD",
+    era: "medieval",
+    description:
+      "The Byzantine Empire was the Eastern Roman continuation after the fall of the West. Centered on Constantinople, it preserved Greco-Roman culture, Christianity, and law for a millennium and influenced medieval Europe and the Islamic world.",
+    geojson: {
+      type: "FeatureCollection",
+      features: [
+        {
+          type: "Feature",
+          properties: { name: "Byzantine Empire" },
+          geometry: {
+            type: "Polygon",
+            coordinates: [
+              [
+                [14.0, 37.0],
+                [16.0, 41.0],
+                [19.0, 42.0],
+                [23.0, 41.0],
+                [27.0, 42.0],
+                [30.0, 41.0],
+                [33.0, 37.0],
+                [36.0, 36.0],
+                [36.0, 32.0],
+                [34.0, 30.0],
+                [32.0, 28.0],
+                [30.0, 30.0],
+                [28.0, 32.0],
+                [25.0, 31.0],
+                [22.0, 31.0],
+                [18.0, 33.0],
+                [15.0, 32.0],
+                [13.0, 34.0],
+                [11.0, 36.0],
+                [12.0, 38.0],
+                [14.0, 37.0],
+              ],
+            ],
+          },
+        },
+      ],
+    },
+    rulers: [
+      { name: "Justinian I", reignStart: 527, reignEnd: 565 },
+      { name: "Heraclius", reignStart: 610, reignEnd: 641 },
+      { name: "Basil II", reignStart: 976, reignEnd: 1025 },
+    ],
+    events: [
+      { year: 330, description: "Constantinople founded as new capital" },
+      { year: 527, description: "Justinian I begins reign; reconquests in the West" },
+      { year: 1453, description: "Fall of Constantinople to the Ottomans" },
+    ],
+  },
+  {
+    id: "mongol-empire",
+    name: "Mongol Empire",
+    startYear: 1206,
+    endYear: 1368,
+    capital: "Karakorum",
+    color: "#D35400",
+    era: "medieval",
+    description:
+      "The Mongol Empire was the largest contiguous land empire in history. Under Genghis Khan and his successors it stretched from Eastern Europe to the Sea of Japan, enabling trade and cultural exchange across Eurasia.",
+    geojson: {
+      type: "FeatureCollection",
+      features: [
+        {
+          type: "Feature",
+          properties: { name: "Mongol Empire" },
+          geometry: {
+            type: "Polygon",
+            coordinates: [
+              [
+                [20.0, 48.0],
+                [40.0, 50.0],
+                [55.0, 50.0],
+                [70.0, 48.0],
+                [90.0, 48.0],
+                [110.0, 46.0],
+                [125.0, 42.0],
+                [125.0, 35.0],
+                [105.0, 32.0],
+                [85.0, 34.0],
+                [70.0, 36.0],
+                [55.0, 38.0],
+                [45.0, 42.0],
+                [32.0, 45.0],
+                [20.0, 48.0],
+              ],
+            ],
+          },
+        },
+      ],
+    },
+    rulers: [
+      { name: "Genghis Khan", reignStart: 1206, reignEnd: 1227 },
+      { name: "Ögedei Khan", reignStart: 1229, reignEnd: 1241 },
+      { name: "Kublai Khan", reignStart: 1260, reignEnd: 1294 },
+    ],
+    events: [
+      { year: 1206, description: "Genghis Khan unites the Mongol tribes" },
+      { year: 1260, description: "Kublai Khan becomes Great Khan; Yuan Dynasty in China" },
+      { year: 1368, description: "Mongol Yuan falls; empire fragments" },
+    ],
+  },
+  {
+    id: "ottoman-empire",
+    name: "Ottoman Empire",
+    startYear: 1299,
+    endYear: 1922,
+    capital: "Constantinople (Istanbul)",
+    color: "#16A085",
+    era: "earlyModern",
+    description:
+      "The Ottoman Empire was a multi-ethnic state that spanned Southeast Europe, Anatolia, the Levant, and North Africa for over six centuries. It was a major power in the Mediterranean and a bridge between East and West.",
+    geojson: {
+      type: "FeatureCollection",
+      features: [
+        {
+          type: "Feature",
+          properties: { name: "Ottoman Empire" },
+          geometry: {
+            type: "Polygon",
+            coordinates: [
+              [
+                [26.0, 42.0],
+                [29.0, 41.0],
+                [33.0, 38.0],
+                [36.0, 36.0],
+                [36.0, 32.0],
+                [35.0, 28.0],
+                [33.0, 26.0],
+                [30.0, 28.0],
+                [32.0, 22.0],
+                [29.0, 20.0],
+                [26.0, 24.0],
+                [24.0, 30.0],
+                [21.0, 32.0],
+                [18.0, 36.0],
+                [17.0, 41.0],
+                [21.0, 43.0],
+                [26.0, 42.0],
+              ],
+            ],
+          },
+        },
+      ],
+    },
+    rulers: [
+      { name: "Mehmed II", reignStart: 1451, reignEnd: 1481 },
+      { name: "Suleiman the Magnificent", reignStart: 1520, reignEnd: 1566 },
+    ],
+    events: [
+      { year: 1299, description: "Osman I founds the Ottoman state" },
+      { year: 1453, description: "Conquest of Constantinople" },
+      { year: 1922, description: "Abolition of the Ottoman Sultanate" },
+    ],
+  },
+  {
+    id: "abbasid-caliphate",
+    name: "Abbasid Caliphate",
+    startYear: 750,
+    endYear: 1258,
+    capital: "Baghdad",
+    color: "#2980B9",
+    era: "medieval",
+    description:
+      "The Abbasid Caliphate was the third Islamic caliphate. Its capital Baghdad became a center of learning, science, and culture during the Islamic Golden Age, and the empire stretched from the Maghreb to Central Asia.",
+    geojson: {
+      type: "FeatureCollection",
+      features: [
+        {
+          type: "Feature",
+          properties: { name: "Abbasid Caliphate" },
+          geometry: {
+            type: "Polygon",
+            coordinates: [
+              [
+                [28.0, 38.0],
+                [42.0, 38.0],
+                [52.0, 36.0],
+                [60.0, 32.0],
+                [58.0, 26.0],
+                [50.0, 25.0],
+                [42.0, 27.0],
+                [36.0, 26.0],
+                [32.0, 25.0],
+                [30.0, 28.0],
+                [26.0, 30.0],
+                [22.0, 29.0],
+                [18.0, 31.0],
+                [16.0, 34.0],
+                [20.0, 36.0],
+                [28.0, 38.0],
+              ],
+            ],
+          },
+        },
+      ],
+    },
+    rulers: [
+      { name: "Harun al-Rashid", reignStart: 786, reignEnd: 809 },
+      { name: "al-Ma'mun", reignStart: 813, reignEnd: 833 },
+    ],
+    events: [
+      { year: 750, description: "Abbasid Revolution overthrows Umayyads" },
+      { year: 762, description: "Baghdad founded as capital" },
+      { year: 1258, description: "Siege of Baghdad; fall of the caliphate" },
+    ],
+  },
+  // ─────────────── 500 BCE – 1 CE (ancient Mediterranean & Asia) ───────────────
+  {
+    id: "roman-republic",
+    name: "Roman Republic",
+    startYear: -509,
+    endYear: -27,
+    capital: "Rome",
+    color: "#922B21",
+    era: "ancient",
+    description:
+      "The Roman Republic was the era of ancient Rome before the empire. It expanded from central Italy to control the Mediterranean, with a senate and elected magistrates. Civil wars and the rise of Augustus ended the republic.",
+    geojson: {
+      type: "FeatureCollection",
+      features: [
+        {
+          type: "Feature",
+          properties: { name: "Roman Republic" },
+          geometry: {
+            type: "Polygon",
+            coordinates: [
+              [
+                [-5.0, 36.0],
+                [2.0, 37.0],
+                [8.0, 41.0],
+                [12.0, 44.0],
+                [14.0, 45.0],
+                [12.0, 43.0],
+                [10.0, 41.0],
+                [6.0, 40.0],
+                [2.0, 38.0],
+                [-2.0, 37.0],
+                [-5.0, 36.0],
+              ],
+            ],
+          },
+        },
+      ],
+    },
+    rulers: [
+      { name: "Julius Caesar", reignStart: -49, reignEnd: -44 },
+      { name: "Augustus (Octavian)", reignStart: -27, reignEnd: 14 },
+    ],
+    events: [
+      { year: -509, description: "Traditional founding of the Republic" },
+      { year: -27, description: "Augustus establishes the Roman Empire" },
+    ],
+  },
+  {
+    id: "carthaginian-empire",
+    name: "Carthaginian Empire",
+    startYear: -650,
+    endYear: -146,
+    capital: "Carthage",
+    color: "#B9770E",
+    era: "ancient",
+    description:
+      "Carthage was a Phoenician-derived power in North Africa that dominated the western Mediterranean. Its conflicts with Rome in the Punic Wars ended with the destruction of Carthage in 146 BCE.",
+    geojson: {
+      type: "FeatureCollection",
+      features: [
+        {
+          type: "Feature",
+          properties: { name: "Carthaginian Empire" },
+          geometry: {
+            type: "Polygon",
+            coordinates: [
+              [
+                [-6.0, 36.0],
+                [10.0, 37.0],
+                [14.0, 38.0],
+                [12.0, 41.0],
+                [9.0, 43.0],
+                [4.0, 41.0],
+                [0.0, 38.0],
+                [-4.0, 36.0],
+                [-6.0, 36.0],
+              ],
+            ],
+          },
+        },
+      ],
+    },
+    rulers: [
+      { name: "Hannibal Barca", reignStart: -247, reignEnd: -183 },
+    ],
+    events: [
+      { year: -264, description: "First Punic War begins" },
+      { year: -218, description: "Hannibal crosses the Alps" },
+      { year: -146, description: "Carthage destroyed by Rome" },
+    ],
+  },
+  {
+    id: "nanda-empire",
+    name: "Nanda Empire",
+    startYear: -345,
+    endYear: -322,
+    capital: "Pataliputra",
+    color: "#6E2C00",
+    era: "ancient",
+    description:
+      "The Nanda Empire ruled much of northern India before the Mauryas. Its wealth and army were noted in Greek sources; Chandragupta Maurya overthrew the last Nanda ruler to found the Maurya Empire.",
+    geojson: {
+      type: "FeatureCollection",
+      features: [
+        {
+          type: "Feature",
+          properties: { name: "Nanda Empire" },
+          geometry: {
+            type: "Polygon",
+            coordinates: [
+              [
+                [80.0, 22.0],
+                [86.0, 26.0],
+                [90.0, 25.0],
+                [90.0, 22.0],
+                [86.0, 20.0],
+                [82.0, 20.0],
+                [78.0, 24.0],
+                [80.0, 22.0],
+              ],
+            ],
+          },
+        },
+      ],
+    },
+    events: [
+      { year: -322, description: "Chandragupta Maurya overthrows Nandas" },
+    ],
+  },
+  {
+    id: "macedonian-empire",
+    name: "Macedonian Empire",
+    startYear: -336,
+    endYear: -323,
+    capital: "Pella",
+    color: "#1A5276",
+    era: "ancient",
+    description:
+      "Under Alexander the Great, Macedon conquered the Persian Empire and reached India, creating one of the largest empires of antiquity. It fragmented into the Hellenistic kingdoms after Alexander's death.",
+    geojson: {
+      type: "FeatureCollection",
+      features: [
+        {
+          type: "Feature",
+          properties: { name: "Macedonian Empire" },
+          geometry: {
+            type: "Polygon",
+            coordinates: [
+              [
+                [20.0, 40.0],
+                [28.0, 42.0],
+                [40.0, 40.0],
+                [55.0, 36.0],
+                [68.0, 32.0],
+                [75.0, 30.0],
+                [78.0, 27.0],
+                [72.0, 25.0],
+                [58.0, 28.0],
+                [42.0, 30.0],
+                [28.0, 32.0],
+                [22.0, 36.0],
+                [20.0, 40.0],
+              ],
+            ],
+          },
+        },
+      ],
+    },
+    rulers: [
+      { name: "Philip II", reignStart: -359, reignEnd: -336 },
+      { name: "Alexander the Great", reignStart: -336, reignEnd: -323 },
+    ],
+    events: [
+      { year: -336, description: "Alexander becomes king" },
+      { year: -323, description: "Death of Alexander; empire divides" },
+    ],
+  },
+  {
+    id: "seleucid-empire",
+    name: "Seleucid Empire",
+    startYear: -312,
+    endYear: -63,
+    capital: "Antioch / Seleucia",
+    color: "#7D3C98",
+    era: "ancient",
+    description:
+      "The Seleucid Empire was the largest of the Hellenistic successor states. It ruled Mesopotamia, Iran, Syria, and parts of Anatolia until Roman and Parthian expansion reduced and ended it.",
+    geojson: {
+      type: "FeatureCollection",
+      features: [
+        {
+          type: "Feature",
+          properties: { name: "Seleucid Empire" },
+          geometry: {
+            type: "Polygon",
+            coordinates: [
+              [
+                [26.0, 37.0],
+                [38.0, 38.0],
+                [52.0, 36.0],
+                [60.0, 33.0],
+                [62.0, 30.0],
+                [58.0, 27.0],
+                [48.0, 26.0],
+                [38.0, 28.0],
+                [32.0, 30.0],
+                [28.0, 33.0],
+                [26.0, 37.0],
+              ],
+            ],
+          },
+        },
+      ],
+    },
+    rulers: [
+      { name: "Seleucus I", reignStart: -305, reignEnd: -281 },
+      { name: "Antiochus III", reignStart: -222, reignEnd: -187 },
+    ],
+    events: [
+      { year: -312, description: "Seleucus I establishes Seleucid rule" },
+      { year: -63, description: "Roman annexation of Syria" },
+    ],
+  },
+  {
+    id: "ptolemaic-kingdom",
+    name: "Ptolemaic Kingdom",
+    startYear: -305,
+    endYear: -30,
+    capital: "Alexandria",
+    color: "#F4D03F",
+    era: "ancient",
+    description:
+      "The Ptolemaic kingdom ruled Egypt and at times Cyprus, the Levant, and parts of the Aegean. It was the last major Hellenistic state to fall to Rome, with Cleopatra's defeat at Actium.",
+    geojson: {
+      type: "FeatureCollection",
+      features: [
+        {
+          type: "Feature",
+          properties: { name: "Ptolemaic Kingdom" },
+          geometry: {
+            type: "Polygon",
+            coordinates: [
+              [
+                [24.0, 32.0],
+                [36.0, 32.0],
+                [36.0, 35.0],
+                [34.0, 37.0],
+                [32.0, 35.0],
+                [30.0, 31.0],
+                [26.0, 29.0],
+                [24.0, 32.0],
+              ],
+            ],
+          },
+        },
+      ],
+    },
+    rulers: [
+      { name: "Ptolemy I", reignStart: -305, reignEnd: -283 },
+      { name: "Cleopatra VII", reignStart: -51, reignEnd: -30 },
+    ],
+    events: [
+      { year: -305, description: "Ptolemy I founds Ptolemaic dynasty" },
+      { year: -30, description: "Egypt annexed by Rome" },
+    ],
+  },
+  {
+    id: "qin-dynasty",
+    name: "Qin Dynasty",
+    startYear: -221,
+    endYear: -206,
+    capital: "Xianyang",
+    color: "#17202A",
+    era: "ancient",
+    description:
+      "The Qin dynasty was the first to unify China under a single emperor. It standardized script, weights, and the Great Wall but fell quickly to rebellion; the Han dynasty succeeded it.",
+    geojson: {
+      type: "FeatureCollection",
+      features: [
+        {
+          type: "Feature",
+          properties: { name: "Qin Dynasty" },
+          geometry: {
+            type: "Polygon",
+            coordinates: [
+              [
+                [100.0, 42.0],
+                [115.0, 42.0],
+                [118.0, 35.0],
+                [116.0, 28.0],
+                [108.0, 26.0],
+                [100.0, 28.0],
+                [98.0, 32.0],
+                [100.0, 38.0],
+                [100.0, 42.0],
+              ],
+            ],
+          },
+        },
+      ],
+    },
+    rulers: [
+      { name: "Qin Shi Huang", reignStart: -221, reignEnd: -210 },
+    ],
+    events: [
+      { year: -221, description: "Qin unifies China; First Emperor" },
+      { year: -206, description: "Fall of Qin; Han dynasty founded" },
+    ],
+  },
 ];
 
 export function getEmpireById(id: string): Empire | undefined {

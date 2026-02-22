@@ -95,7 +95,7 @@ export default function EmpireDetailsPanel() {
                 Overview
               </h3>
               <p className="text-sm leading-relaxed text-white/70">
-                {selectedEmpire.description}
+                {selectedEmpire.description ?? "—"}
               </p>
             </section>
 
@@ -105,7 +105,7 @@ export default function EmpireDetailsPanel() {
                 Notable Rulers
               </h3>
               <div className="space-y-2">
-                {selectedEmpire.rulers.map((ruler) => (
+                {(selectedEmpire.rulers ?? []).map((ruler) => (
                   <div
                     key={`${ruler.name}-${ruler.reignStart}`}
                     className="flex items-center justify-between rounded-lg bg-white/5 px-4 py-3"
@@ -127,7 +127,7 @@ export default function EmpireDetailsPanel() {
                 Key Events
               </h3>
               <div className="relative pl-4 border-l border-white/10">
-                {selectedEmpire.events.map((event) => (
+                {(selectedEmpire.events ?? []).map((event) => (
                   <div key={`${event.year}-${event.description}`} className="mb-4 last:mb-0">
                     <div className="absolute -left-[5px] w-2.5 h-2.5 rounded-full bg-white/20 border-2 border-gray-950" />
                     <p className="text-xs font-medium text-white/50 tabular-nums mb-0.5">

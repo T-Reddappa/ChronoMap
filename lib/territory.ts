@@ -31,8 +31,11 @@ function geometryArea(geom: Polygon | MultiPolygon): number {
 }
 
 function computeEmpireArea(empire: Empire): number {
+  const geojson =
+    empire.geometries?.[0]?.geojson ?? empire.geojson;
+  if (!geojson) return 0;
   let total = 0;
-  for (const feature of empire.geojson.features) {
+  for (const feature of geojson.features) {
     total += geometryArea(feature.geometry as Polygon | MultiPolygon);
   }
   return total;

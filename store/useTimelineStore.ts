@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import type { Empire, MapLayer } from "@/lib/types";
+import { MIN_YEAR, MAX_YEAR } from "@/lib/timeUtils";
 
 interface TimelineState {
   /** Float during playback (e.g. 68.42), integer on manual slider drag. */
@@ -15,6 +16,8 @@ interface TimelineState {
   cinematicAtmosphere: boolean;
   /** Map view: 3D globe or 2D flat (mercator). */
   projectionMode: "globe" | "mercator";
+  /** When true, show modern country boundary outlines at low opacity for comparison. */
+  compareModernBorders: boolean;
 
   setSelectedYear: (year: number) => void;
   setSelectedEmpire: (empire: Empire | null) => void;
@@ -24,6 +27,7 @@ interface TimelineState {
   toggleFocusMode: () => void;
   toggleCinematicAtmosphere: () => void;
   setProjectionMode: (mode: "globe" | "mercator") => void;
+  setCompareModernBorders: (on: boolean) => void;
 }
 
 export const useTimelineStore = create<TimelineState>((set) => ({
@@ -32,11 +36,13 @@ export const useTimelineStore = create<TimelineState>((set) => ({
   layers: [{ type: "empires", visible: true }],
   isPlaying: false,
   playbackSpeed: 50,
-  focusMode: false,
+  focusMode: true,
   cinematicAtmosphere: true,
   projectionMode: "globe",
+  compareModernBorders: false,
 
-  setSelectedYear: (year) => set({ selectedYear: year }),
+  setSelectedYear: (year) =>
+    set({ selectedYear: Math.max(MIN_YEAR, Math.min(MAX_YEAR, year)) }),
   setSelectedEmpire: (empire) => set({ selectedEmpire: empire }),
   toggleLayer: (type) =>
     set((state) => ({
@@ -50,4 +56,5 @@ export const useTimelineStore = create<TimelineState>((set) => ({
   toggleCinematicAtmosphere: () =>
     set((state) => ({ cinematicAtmosphere: !state.cinematicAtmosphere })),
   setProjectionMode: (mode) => set({ projectionMode: mode }),
+  setCompareModernBorders: (on) => set({ compareModernBorders: on }),
 }));

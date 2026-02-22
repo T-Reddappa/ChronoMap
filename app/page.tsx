@@ -6,6 +6,7 @@ import EmpireDetailsPanel from "@/components/EmpireDetailsPanel";
 import ChapterOverlay from "@/components/ChapterOverlay";
 import AtmosphereOverlay from "@/components/AtmosphereOverlay";
 import DominantPowerOverlay from "@/components/DominantPowerOverlay";
+import WorldYearPanel from "@/components/WorldYearPanel";
 import { useTimelineStore } from "@/store/useTimelineStore";
 import { formatYear } from "@/lib/timeUtils";
 
@@ -107,6 +108,31 @@ function AtmosphereToggle() {
   );
 }
 
+function CompareModernBordersToggle() {
+  const on = useTimelineStore((s) => s.compareModernBorders);
+  const set = useTimelineStore((s) => s.setCompareModernBorders);
+
+  return (
+    <button
+      onClick={() => set(!on)}
+      className={`
+        flex items-center gap-2 px-3 py-2 rounded-xl border transition-colors text-sm font-medium
+        ${
+          on
+            ? "bg-white/15 border-white/30 text-white/90"
+            : "bg-black/60 backdrop-blur-lg border-white/10 text-white/50 hover:text-white/80"
+        }
+      `}
+      aria-label="Compare with modern borders"
+    >
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeDasharray="2 1">
+        <path d="M2 4h12M2 8h12M2 12h8" />
+      </svg>
+      <span>Compare with Modern Borders</span>
+    </button>
+  );
+}
+
 function ProjectionToggle() {
   const projectionMode = useTimelineStore((s) => s.projectionMode);
   const setProjectionMode = useTimelineStore((s) => s.setProjectionMode);
@@ -177,12 +203,16 @@ export default function Home() {
       <MapView />
       <AtmosphereOverlay />
       <YearBadge />
-      <DominantPowerOverlay />
-      <div className="absolute top-4 right-[13rem] z-10 flex flex-col gap-2">
-        <ProjectionToggle />
-        <FocusModeToggle />
-        <AtmosphereToggle />
+      <div className="absolute top-4 right-4 z-10 flex flex-col items-end gap-3">
+        <div className="flex flex-wrap items-center justify-end gap-2">
+          <CompareModernBordersToggle />
+          <ProjectionToggle />
+          <FocusModeToggle />
+          <AtmosphereToggle />
+        </div>
+        <DominantPowerOverlay />
       </div>
+      <WorldYearPanel />
       <ChapterOverlay />
       <TimelineSlider />
       <EmpireDetailsPanel />

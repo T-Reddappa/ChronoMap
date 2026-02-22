@@ -6,15 +6,12 @@ import { formatYear, MIN_YEAR, MAX_YEAR } from "@/lib/timeUtils";
 import { momentumFactor } from "@/lib/momentum";
 
 const ERA_MARKERS = [
-  { year: -3000, label: "3000 BCE" },
-  { year: -2000, label: "2000 BCE" },
-  { year: -1000, label: "1000 BCE" },
   { year: -500, label: "500 BCE" },
   { year: 0, label: "1 CE" },
   { year: 500, label: "500 CE" },
   { year: 1000, label: "1000 CE" },
   { year: 1500, label: "1500 CE" },
-  { year: 2000, label: "2000 CE" },
+  { year: 1900, label: "1900 CE" },
 ];
 
 const SPEED_PRESETS = [
@@ -34,7 +31,8 @@ export default function TimelineSlider() {
 
   const handleSliderChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      setSelectedYear(Math.round(Number(e.target.value)));
+      const year = Math.round(Number(e.target.value));
+      setSelectedYear(Math.max(MIN_YEAR, Math.min(MAX_YEAR, year)));
     },
     [setSelectedYear]
   );
@@ -60,7 +58,8 @@ export default function TimelineSlider() {
 
         const elapsed = (now - playbackStartRef.current) / 1000;
         const momentum = momentumFactor(selectedYear, elapsed);
-        const next = selectedYear + playbackSpeed * momentum * dt;
+        let next = selectedYear + playbackSpeed * momentum * dt;
+        next = Math.max(MIN_YEAR, Math.min(MAX_YEAR, next));
 
         if (next >= MAX_YEAR) {
           setSelectedYear(MAX_YEAR);
@@ -78,8 +77,9 @@ export default function TimelineSlider() {
     return () => cancelAnimationFrame(rafId);
   }, [isPlaying]);
 
+  const intYear = Math.floor(selectedYear);
   const progress =
-    ((selectedYear - MIN_YEAR) / (MAX_YEAR - MIN_YEAR)) * 100;
+    ((intYear - MIN_YEAR) / (MAX_YEAR - MIN_YEAR)) * 100;
 
   return (
     <div className="absolute bottom-0 left-0 right-0 z-20">
@@ -132,11 +132,17 @@ export default function TimelineSlider() {
           </div>
         </div>
 
-        {/* Slider track */}
+        {/* Slider track: global progress bar (-500 to 1900) with gradient, current year highlighted */}
         <div className="relative">
-          <div className="relative h-2 rounded-full bg-white/10 overflow-hidden">
+          <div
+            className="relative h-2 rounded-full overflow-hidden"
+            style={{
+              background:
+                "linear-gradient(to right, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.12) 20%, rgba(255,255,255,0.14) 50%, rgba(255,255,255,0.12) 80%, rgba(255,255,255,0.06) 100%)",
+            }}
+          >
             <div
-              className="absolute top-0 left-0 h-full rounded-full bg-linear-to-r from-amber-500 to-orange-500 will-change-[width]"
+              className="absolute top-0 left-0 h-full rounded-full bg-linear-to-r from-amber-500 to-orange-500"
               style={{ width: `${progress}%` }}
             />
           </div>

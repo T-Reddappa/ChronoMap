@@ -60,16 +60,16 @@ export class EngraveLabelManager {
   /**
    * Schedule the engrave to start after `delayMs` (e.g. 800ms to align
    * with CameraScheduler focus execution). Cancels any pending or
-   * running engrave for a previous empire.
+   * running engrave for a previous empire. Uses active geometry at year for centroid.
    */
-  scheduleStart(empire: Empire, delayMs: number): void {
+  scheduleStart(empire: Empire, year: number, delayMs: number): void {
     this.cancelPending();
     this.stop();
 
     this.startTimeoutId = setTimeout(() => {
       this.startTimeoutId = null;
       if (this.disposed) return;
-      this.startAnimation(empire);
+      this.startAnimation(empire, year);
     }, delayMs);
   }
 
@@ -112,11 +112,13 @@ export class EngraveLabelManager {
     }
   }
 
-  private startAnimation(empire: Empire): void {
+  private startAnimation(empire: Empire, year: number): void {
     this.removeLayer();
     this.currentEmpireId = empire.id;
 
-    const [lng, lat] = computeEmpireCentroid(empire);
+    const centroid = computeEmpireCentroid(empire, year);
+    if (!centroid) return;
+    const [lng, lat] = centroid;
     const label = empire.name.toUpperCase();
 
     this.map.addSource(SOURCE_ID, {
