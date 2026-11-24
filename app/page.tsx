@@ -125,7 +125,16 @@ function CompareModernBordersToggle() {
       `}
       aria-label="Compare with modern borders"
     >
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeDasharray="2 1">
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 16 16"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeDasharray="2 1"
+      >
         <path d="M2 4h12M2 8h12M2 12h8" />
       </svg>
       <span>Compare with Modern Borders</span>

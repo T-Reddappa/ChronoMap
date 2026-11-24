@@ -46,7 +46,7 @@ const EMPIRE_NAME_LABELS_LAYER_ID = "empire-name-labels-layer";
 function addEmpireLayers(
   map: mapboxgl.Map,
   empire: Empire,
-  geojson: FeatureCollection<Polygon | MultiPolygon>
+  geojson: FeatureCollection<Polygon | MultiPolygon>,
 ): void {
   const sourceId = `source-${empire.id}`;
   if (map.getSource(sourceId)) return;
@@ -64,7 +64,7 @@ function addEmpireLayers(
       source: sourceId,
       paint: { "fill-color": empire.color, "fill-opacity": 0 },
     },
-    beforeId
+    beforeId,
   );
 
   map.addLayer(
@@ -78,7 +78,7 @@ function addEmpireLayers(
         "line-opacity": 0,
       },
     },
-    beforeId
+    beforeId,
   );
 }
 
@@ -134,7 +134,7 @@ function syncLayers(
   year: number,
   fadeManager: FadeManager,
   activeLayers: Set<string>,
-  activeGeometryByEmpire: Map<string, { startYear: number; endYear: number }>
+  activeGeometryByEmpire: Map<string, { startYear: number; endYear: number }>,
 ): Set<string> {
   const visibleIds = new Set(empireLoader.getVisibleIds(year));
 
@@ -227,7 +227,7 @@ export default function MapView() {
       zoom: 2.5,
       accessToken: MAPBOX_TOKEN,
       attributionControl: false,
-      projection: "mercator",
+      projection: "naturalEarth",
       renderWorldCopies: false,
       maxBounds: [
         [-180, -85],
@@ -238,7 +238,7 @@ export default function MapView() {
     map.addControl(new mapboxgl.NavigationControl(), "top-left");
     map.addControl(
       new mapboxgl.AttributionControl({ compact: true }),
-      "bottom-left"
+      "bottom-left",
     );
 
     // ── Map loaded ──────────────────────────────────────────
@@ -273,7 +273,10 @@ export default function MapView() {
         exaggeration: 1.1,
       });
       hideModernMapLayers(map);
-      setModernBoundariesVisible(map, useTimelineStore.getState().compareModernBorders);
+      setModernBoundariesVisible(
+        map,
+        useTimelineStore.getState().compareModernBorders,
+      );
       // Performance: globe + terrain are set once in load; no React state, no duplicate
       // DEM source (guard above). FadeManager and layer sync are unchanged; playback
       // remains one rAF in TimelineSlider and one in FadeManager — no extra frame cost.
@@ -320,7 +323,7 @@ export default function MapView() {
           year,
           fadeManager,
           activeLayerIds.current,
-          activeGeometryByEmpire.current
+          activeGeometryByEmpire.current,
         );
 
       // Preload JSON-backed empires visible at init so first runSync can draw them
@@ -328,8 +331,8 @@ export default function MapView() {
       try {
         await Promise.all(
           initVisibleIds.map((id) =>
-            empireLoader.get(id) ? Promise.resolve() : empireLoader.load(id)
-          )
+            empireLoader.get(id) ? Promise.resolve() : empireLoader.load(id),
+          ),
         );
       } catch {
         // One or more JSON loads failed; runSync will still draw legacy empires
@@ -380,7 +383,9 @@ export default function MapView() {
         },
       });
       const updatePlacesForYear = (year: number) => {
-        const src = map.getSource("historical-places") as mapboxgl.GeoJSONSource;
+        const src = map.getSource(
+          "historical-places",
+        ) as mapboxgl.GeoJSONSource;
         if (src) src.setData(buildPlacesGeoJSON(getPlacesSync(), year));
       };
 
@@ -425,7 +430,7 @@ export default function MapView() {
             const bounds = computeCombinedBounds(
               visibleIds,
               intYear,
-              getEmpire
+              getEmpire,
             );
             if (bounds) {
               scheduler.scheduleFocus(bounds, { solo: true });
@@ -434,7 +439,7 @@ export default function MapView() {
                 engraveManager.scheduleStart(
                   empire,
                   intYear,
-                  ENGRAVE_START_DELAY_MS
+                  ENGRAVE_START_DELAY_MS,
                 );
               }
             }
@@ -444,7 +449,7 @@ export default function MapView() {
               const bounds = computeCombinedBounds(
                 visibleIds,
                 intYear,
-                getEmpire
+                getEmpire,
               );
               if (bounds) {
                 scheduler.scheduleFocus(bounds, { solo: false });
@@ -489,7 +494,7 @@ export default function MapView() {
           })
             .setLngLat(e.lngLat)
             .setHTML(
-              `<div style="font-weight:600;font-size:14px;color:#fff">${empire.name}</div>`
+              `<div style="font-weight:600;font-size:14px;color:#fff">${empire.name}</div>`,
             )
             .addTo(map);
         }
